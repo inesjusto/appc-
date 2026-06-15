@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfMeter - Website de Divulgação</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #09224a;
+            background: #edf3f9;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 14px max(28px, calc((100vw - 1120px) / 2));
+            background: rgba(3, 21, 48, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .nav img {
+            width: 152px;
+            height: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            color: #e9f2ff;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            opacity: 0.88;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .hero {
+            min-height: 620px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 44px;
+            align-items: center;
+            padding: 54px max(28px, calc((100vw - 1120px) / 2)) 64px;
+            background:
+                linear-gradient(130deg, rgba(4, 24, 52, 0.96) 0%, rgba(9, 50, 105, 0.92) 54%, rgba(232, 239, 248, 0.96) 54.2%),
+                #eef4fb;
+            overflow: hidden;
+        }
+
+        .hero-texto {
+            color: white;
+        }
+
+        .etiqueta {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 13px;
+            border-radius: 999px;
+            color: #cfe6ff;
+            border: 1px solid rgba(207, 230, 255, 0.42);
+            background: rgba(255, 255, 255, 0.07);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        h1 {
+            margin: 20px 0 0;
+            max-width: 650px;
+            font-size: 58px;
+            line-height: 1.02;
+            color: white;
+        }
+
+        .hero p {
+            max-width: 620px;
+            margin: 20px 0 0;
+            color: #d8e7f8;
+            font-size: 20px;
+            line-height: 1.55;
+        }
+
+        .botoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 32px;
+        }
+
+        .botao {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 176px;
+            min-height: 48px;
+            padding: 13px 20px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            text-decoration: none;
+            font-weight: 850;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .botao:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .principal {
+            color: #041834;
+            background: #bfe4ff;
+            border-color: #bfe4ff;
+        }
+
+        .secundario {
+            color: white;
+            border-color: rgba(255, 255, 255, 0.54);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-visual {
+            display: grid;
+            gap: 18px;
+        }
+
+        .logo-card {
+            padding: 26px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.78);
+            box-shadow: 0 28px 60px rgba(6, 24, 52, 0.22);
+            border: 1px solid rgba(170, 193, 222, 0.82);
+        }
+
+        .logo-card img {
+            width: 100%;
+            display: block;
+        }
+
+        .mini-dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .mini {
+            min-height: 84px;
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #cad8e9;
+            box-shadow: 0 12px 28px rgba(8, 34, 74, 0.1);
+        }
+
+        .mini strong {
+            display: block;
+            font-size: 23px;
+            color: #0b3b7b;
+        }
+
+        .mini span {
+            display: block;
+            margin-top: 5px;
+            color: #53657b;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .secao {
+            padding: 68px max(28px, calc((100vw - 1120px) / 2));
+        }
+
+        .secao h2 {
+            margin: 0;
+            color: #061b3a;
+            font-size: 36px;
+        }
+
+        .secao-intro {
+            max-width: 720px;
+            margin: 12px 0 0;
+            color: #40536c;
+            font-size: 18px;
+            line-height: 1.55;
+        }
+
+        .grelha {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .cartao {
+            padding: 24px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #cfdaea;
+            box-shadow: 0 16px 34px rgba(8, 34, 74, 0.08);
+        }
+
+        .cartao h3 {
+            margin: 0;
+            color: #0b3b7b;
+            font-size: 21px;
+        }
+
+        .cartao p {
+            margin: 12px 0 0;
+            color: #4b5d73;
+            line-height: 1.5;
+            font-size: 15.5px;
+        }
+
+        .demo {
+            background: #061b3a;
+            color: white;
+        }
+
+        .demo h2 {
+            color: white;
+        }
+
+        .demo .secao-intro {
+            color: #d1e3f7;
+        }
+
+        .janela {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 22px;
+            margin-top: 32px;
+            padding: 22px;
+            border-radius: 16px;
+            background: #eef4fb;
+            color: #09224a;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            box-shadow: 0 26px 54px rgba(0, 0, 0, 0.24);
+        }
+
+        .professor {
+            min-height: 370px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #0a2f63, #041834);
+            overflow: hidden;
+        }
+
+        .professor img {
+            width: 96%;
+            max-height: 360px;
+            object-fit: contain;
+            object-position: bottom center;
+            display: block;
+        }
+
+        .estado-lista {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .estado {
+            padding: 18px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #d3deed;
+        }
+
+        .estado strong {
+            display: block;
+            color: #0b3b7b;
+            font-size: 18px;
+        }
+
+        .estado span {
+            display: block;
+            margin-top: 7px;
+            color: #506176;
+            font-size: 14.5px;
+            line-height: 1.4;
+        }
+
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .screenshot-card {
+            overflow: hidden;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #d1ddeb;
+            box-shadow: 0 14px 30px rgba(8, 34, 74, 0.08);
+        }
+
+        .screenshot-preview {
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            color: #53657b;
+            background: linear-gradient(135deg, #f8fbff, #e5edf7);
+            border-bottom: 1px solid #d1ddeb;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid #d1ddeb;
+        }
+
+        .screenshot-card h3 {
+            margin: 0;
+            padding: 16px 18px 4px;
+            color: #0b3b7b;
+            font-size: 18px;
+        }
+
+        .screenshot-card p {
+            margin: 0;
+            padding: 0 18px 18px;
+            color: #4b5d73;
+            line-height: 1.45;
+            font-size: 14.5px;
+        }
+
+        .personagem {
+            padding: 14px 12px 12px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #d1ddeb;
+            text-align: center;
+            box-shadow: 0 14px 30px rgba(8, 34, 74, 0.08);
+        }
+
+        .personagem img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            display: block;
+        }
+
+        .personagem strong {
+            display: block;
+            margin-top: 8px;
+            color: #0b3b7b;
+            font-size: 14px;
+        }
+
+        .downloads {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .requisitos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .requisito {
+            padding: 20px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #cfdaea;
+            box-shadow: 0 14px 30px rgba(8, 34, 74, 0.08);
+        }
+
+        .requisito strong {
+            display: block;
+            color: #0b3b7b;
+            font-size: 17px;
+        }
+
+        .requisito span {
+            display: block;
+            margin-top: 8px;
+            color: #4b5d73;
+            line-height: 1.45;
+            font-size: 14.5px;
+        }
+
+        .download-card {
+            padding: 28px;
+            border-radius: 14px;
+            background: white;
+            border: 1px solid #cbd9e9;
+            box-shadow: 0 18px 42px rgba(8, 34, 74, 0.08);
+        }
+
+        .download-card h3 {
+            margin: 0;
+            color: #061b3a;
+            font-size: 24px;
+        }
+
+        .download-card p {
+            margin: 12px 0 22px;
+            color: #4b5d73;
+            line-height: 1.5;
+        }
+
+        .download-card .botao {
+            width: 100%;
+        }
+
+        .download-card .principal,
+        .download-card .secundario {
+            color: white;
+            border-color: #0c3f84;
+            background: #0c3f84;
+        }
+
+        .download-card .principal:hover,
+        .download-card .secundario:hover {
+            background: #092f63;
+        }
+
+        .rodape {
+            padding: 26px max(28px, calc((100vw - 1120px) / 2));
+            color: #d7e7f9;
+            background: #03152f;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 920px) {
+            .hero,
+            .janela,
+            .downloads {
+                grid-template-columns: 1fr;
+            }
+
+            .grelha,
+            .mini-dashboard,
+            .screenshots,
+            .requisitos {
+                grid-template-columns: 1fr;
+            }
+
+            .galeria {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .estado-lista,
+            .galeria {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="nav">
+        <img src="Assets/profmeter-logo.png" alt="Logo ProfMeter">
+        <nav class="nav-links">
+            <a href="#sobre">Sobre</a>
+            <a href="#funcionalidades">Funcionalidades</a>
+            <a href="#estados">Estados</a>
+            <a href="#capturas">Capturas</a>
+            <a href="#requisitos">Requisitos</a>
+            <a href="#downloads">Downloads</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-texto">
+                <span class="etiqueta">Aplicação em C# Windows Forms</span>
+                <h1>Até onde vai a paciência do professor?</h1>
+                <p>
+                    O ProfMeter transforma uma aula numa simulação interativa: cada ação dos alunos altera a paciência
+                    do professor, muda o seu estado e fica guardada num histórico.
+                </p>
+                <p>
+                    <strong>Grupo 5</strong> 
+                </p>
+                <div class="botoes">
+                    <a class="botao principal" href="#downloads">Obter aplicação</a>
+                    <a class="botao secundario" href="#funcionalidades">Ver funcionalidades</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="logo-card">
+                    <img src="Assets/profmeter-logo.png" alt="Logo do ProfMeter">
+                </div>
+                <div class="mini-dashboard">
+                    <div class="mini">
+                        <strong>100%</strong>
+                        <span>paciência inicial</span>
+                    </div>
+                    <div class="mini">
+                        <strong>5</strong>
+                        <span>estados visuais</span>
+                    </div>
+                    <div class="mini">
+                        <strong>∞</strong>
+                        <span>ações registadas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="secao">
+            <h2>O que é o ProfMeter?</h2>
+            <p class="secao-intro">
+                É uma aplicação simples, criativa e divertida para representar a dinâmica de uma aula.
+                O professor começa calmo, mas as ações dos alunos podem melhorar ou piorar a sua paciência.
+            </p>
+
+            <div class="grelha">
+                <article class="cartao">
+                    <h3>Simulação interativa</h3>
+                    <p>O utilizador escreve uma ação, escolhe se é positiva ou negativa e indica um valor numérico.</p>
+                </article>
+                <article class="cartao">
+                    <h3>Resultado imediato</h3>
+                    <p>A paciência atualiza automaticamente e nunca ultrapassa 100% nem fica abaixo de 0%.</p>
+                </article>
+                <article class="cartao">
+                    <h3>Visual divertido</h3>
+                    <p>O professor muda de imagem consoante o seu estado, tornando a aplicação mais expressiva.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="funcionalidades" class="secao demo">
+            <h2>Como funciona?</h2>
+            <p class="secao-intro">
+                A aplicação combina validações, estruturas condicionais, estruturas de repetição e gestão de dados em memória.
+            </p>
+
+            <div class="janela">
+                <div class="professor">
+                    <img src="Assets/professor-calmo.png" alt="Professor calmo">
+                </div>
+
+                <div class="estado-lista">
+                    <div class="estado">
+                        <strong>Adicionar ação</strong>
+                        <span>Regista ações como participação, barulho, trabalhos feitos ou uso do telemóvel.</span>
+                    </div>
+                    <div class="estado">
+                        <strong>Atualizar paciência</strong>
+                        <span>Ações positivas aumentam a paciência e ações negativas diminuem a paciência.</span>
+                    </div>
+                    <div class="estado">
+                        <strong>Mostrar estado</strong>
+                        <span>O estado do professor muda entre calmo, atento, irritado, quase sem paciência e aula terminada.</span>
+                    </div>
+                    <div class="estado">
+                        <strong>Histórico da aula</strong>
+                        <span>Todas as ações ficam guardadas numa lista durante a execução da aplicação.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="estados" class="secao">
+            <h2>Estados do professor</h2>
+            <p class="secao-intro">
+                A experiência fica mais clara porque cada intervalo de paciência tem uma imagem associada.
+            </p>
+
+            <div class="galeria">
+                <div class="personagem">
+                    <img src="Assets/professor-calmo.png" alt="Professor calmo">
+                    <strong>Calmo</strong>
+                </div>
+                <div class="personagem">
+                    <img src="Assets/professor-atento.png" alt="Professor atento">
+                    <strong>Atento</strong>
+                </div>
+                <div class="personagem">
+                    <img src="Assets/professor-irritado.png" alt="Professor irritado">
+                    <strong>Irritado</strong>
+                </div>
+                <div class="personagem">
+                    <img src="Assets/professor-sempaciencia.png" alt="Professor quase sem paciência">
+                    <strong>Quase sem paciência</strong>
+                </div>
+                <div class="personagem">
+                    <img src="Assets/professor-sair.png" alt="Professor a sair da aula">
+                    <strong>Aula terminada</strong>
+                </div>
+            </div>
+        </section>
+
+        <section id="capturas" class="secao">
+            <h2>Capturas de ecrã da interface</h2>
+            <p class="secao-intro">
+                Esta secção apresenta exemplos da interface final da aplicação e demonstra o funcionamento das principais opções.
+            </p>
+
+            <div class="screenshots">
+                <article class="screenshot-card">
+                    <img src="Assets/interfaceinicial.png" alt="Captura da interface inicial do ProfMeter">
+                    <h3>Interface inicial</h3>
+                    <p>Mostra a aplicação ao abrir, com a paciência a 100% e o professor no estado calmo.</p>
+                </article>
+                <article class="screenshot-card">
+                    <img src="Assets/acaonegativa.png" alt="Captura de uma ação negativa no ProfMeter">
+                    <h3>Ação negativa</h3>
+                    <p>Mostra a paciência a diminuir após uma ação negativa inserida pelo utilizador.</p>
+                </article>
+                <article class="screenshot-card">
+                    <img src="Assets/historicoaula.png" alt="Captura do histórico da aula no ProfMeter">
+                    <h3>Histórico da aula</h3>
+                    <p>Mostra a lista de ações registadas durante a simulação da aula.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="requisitos" class="secao">
+            <h2>Requisitos para execução</h2>
+            <p class="secao-intro">
+                Para executar o ProfMeter, o computador deve cumprir alguns requisitos básicos.
+            </p>
+
+            <div class="requisitos">
+                <div class="requisito">
+                    <strong>Sistema operativo</strong>
+                    <span>Windows 10 ou Windows 11.</span>
+                </div>
+                <div class="requisito">
+                    <strong>Framework</strong>
+                    <span>.NET Framework 4.7.2 ou superior.</span>
+                </div>
+                <div class="requisito">
+                    <strong>Tipo de aplicação</strong>
+                    <span>Windows Forms App desenvolvida em C#.</span>
+                </div>
+                <div class="requisito">
+                    <strong>Ficheiros necessários</strong>
+                    <span>Executável da aplicação e pasta Assets com as imagens utilizadas.</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="downloads" class="secao">
+            <h2>Downloads e relatório PDF</h2>
+
+            <div class="downloads">
+                <article class="download-card">
+                    <h3>Aplicação ProfMeter</h3>
+                    <a class="botao principal" href="https://drive.google.com/drive/folders/1TtAdlxmWfySWf73xHDYwycQxJpgNHjBE?usp=drive_link">Download do EXE</a>
+                </article>
+                <article class="download-card">
+                    <h3>Relatório em PDF</h3>
+                    <a class="botao secundario" href="https://1drv.ms/w/c/8004c054ecd2cb4e/IQD_-_TJ5P90RKRyWtcdDWnFARHH93KF0dGcsS8JW9KliVQ?e=7IpjRD" download>Download do relatório PDF</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        ProfMeter - Projeto desenvolvido em C# Windows Forms.
+    </footer>
+</body>
+</html>
